@@ -81,8 +81,6 @@ func add_coin():
 	coins += 1
 
 
-func _on_Area2D_body_entered(body):
-	can_change_layer = true
 	
 	
 
@@ -104,9 +102,18 @@ func PlayerDeath(var eposx):
 	$DeathTimer.start()
 #	get_tree().change_scene("res://Levels/Level1.tscn")
 
-func _on_SwitchZone_body_exited(body):
-	can_change_layer = false
+
 
 
 func _on_DeathTimer_timeout():
 	get_tree().change_scene("res://Levels/Level1.tscn")
+
+
+func _on_SwitchZone_body_entered(body):
+	print("Body entered the zone")
+	can_change_layer = true
+
+
+func _on_SwitchZone_body_exited(body):
+	print("Body exited the zone")
+	can_change_layer = false

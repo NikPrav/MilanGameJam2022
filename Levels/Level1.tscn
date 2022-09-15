@@ -9,18 +9,16 @@
 [ext_resource path="res://Levels/TileMap One-Way.gd" type="Script" id=7]
 [ext_resource path="res://Levels/tilemap_controller.gd" type="Script" id=8]
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=9]
-[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/switchRed_left.png" type="Texture" id=10]
+[ext_resource path="res://Objects/SwitchZone.tscn" type="PackedScene" id=10]
 [ext_resource path="res://abstract-platformer-370-assets/PNG/Items/discRed.png" type="Texture" id=11]
 [ext_resource path="res://kenney_fontpackage/Fonts/Kenney Blocks.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://kenney_fontpackage/Fonts/Kenney Rocket Square.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://Levels/HUD.gd" type="Script" id=14]
 [ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Lighting/LightSource.tscn" type="PackedScene" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 192, 32 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1648, 32 )
@@ -68,18 +66,10 @@ collision_mask = 21
 format = 1
 tile_data = PoolIntArray( 23, 14, 0, 24, 4, 0, 25, 4, 0, 26, 4, 0, 27, 4, 0, 28, 4, 0, 29, 4, 0, 30, 15, 0, 131104, 3, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 5, 0, 196623, 14, 0, 196624, 4, 0, 196625, 4, 0, 196626, 4, 0, 196627, 4, 0, 196628, 15, 0, 262148, 6, 0, 262149, 4, 0, 262150, 4, 0, 262151, 4, 0, 262152, 4, 0, 262153, 4, 0, 262154, 7, 0, 327683, 6, 0, 327684, 17, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 18, 0, 327691, 7, 0, 393218, 13, 0, 393219, 17, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 18, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0 )
 
-[node name="SwitchZone" type="Area2D" parent="."]
-position = Vector2( 448, 224 )
-collision_layer = 32
-__meta__ = {
-"_edit_group_": true
-}
+[node name="SwitchZone" parent="." instance=ExtResource( 10 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchZone"]
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="SwitchZone"]
-texture = ExtResource( 10 )
+[node name="SwitchZone2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 605, 226 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 244, 86 )
@@ -185,14 +175,29 @@ position = Vector2( 1312, 160 )
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource( 15 )]
-position = Vector2( 352, 224 )
+position = Vector2( 551, 40 )
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 15 )]
 position = Vector2( 1024, 160 )
 detects_cliffs = false
 
-[connection signal="body_entered" from="SwitchZone" to="Player" method="_on_Area2D_body_entered"]
+[node name="Lights" type="Node2D" parent="."]
+position = Vector2( 818, 350 )
+
+[node name="LightSource2" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( -250, -362 )
+
+[node name="LightSource3" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( -599, -55 )
+layer = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
+
+[connection signal="body_entered" from="SwitchZone" to="Player" method="_on_SwitchZone_body_entered"]
 [connection signal="body_exited" from="SwitchZone" to="Player" method="_on_SwitchZone_body_exited"]
+[connection signal="body_entered" from="SwitchZone2" to="Player" method="_on_SwitchZone_body_entered"]
+[connection signal="body_exited" from="SwitchZone2" to="Player" method="_on_SwitchZone_body_exited"]
 [connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
 [connection signal="coin_collected" from="CoinPurse/Coin" to="HUD" method="_on_coin_collected" flags=6]
 [connection signal="coin_collected" from="CoinPurse/Coin2" to="HUD" method="_on_coin_collected" flags=6]

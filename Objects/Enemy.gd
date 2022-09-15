@@ -3,9 +3,13 @@ extends KinematicBody2D
 var SPEED = 50
 var GRAV = 20
 
+var cur_velocity = Vector2(0,0)
+var frozen = false
+
 var velocity = Vector2(0,0)
 export var direction = -1
 export var detects_cliffs = true
+export var layer = 0
 
 func _ready():
 	if direction < 0:
@@ -19,7 +23,12 @@ func _ready():
 
 func _physics_process(delta):
 	
-	motion_handler()
+	var node = get_parent().get_parent()
+	if(int(node.cur_layer) == layer):
+		motion_handler()
+	else:
+		motion_stop()
+		stop_collisions()
 	
 	if is_on_wall() or (not $FloorCheck.is_colliding() and detects_cliffs) and is_on_floor():
 		direction *= -1
@@ -29,23 +38,28 @@ func _physics_process(delta):
 
 
 func motion_handler():	
-	velocity.y += GRAV
-	
+#	if !frozen:
+#		velocity.y += GRAV		
+#		velocity.x = direction * SPEED
+#	else:
+#		velocity = cur_velocity
+	start_collisions()
+	velocity.y += GRAV		
 	velocity.x = direction * SPEED
-	
-	
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP)	
+
+func motion_stop():	
+	move_and_slide(Vector2(0,0), Vector2.UP)
+	stop_collisions()
 
 
 func _on_Top_checker_body_entered(body):
 	print("Player on top")
 	$Sprite.play("Kill")
 	SPEED = 0
-	set_collision_layer_bit(4,false)
-	set_collision_mask_bit(0,false)
-	$Top_checker.set_collision_mask_bit(0,false)
-	$Side_checker.set_collision_mask_bit(0,false)
 	
+	layer = 5
+	stop_collisions()
 	$DeathTimer.start()
 	body.bounce()
 	pass # Replace with function body.
@@ -55,14 +69,22 @@ func _on_Top_checker_body_entered(body):
 
 func _on_Side_checker_body_entered(body):
 	print("Player on the side")
-	set_collision_layer_bit(4,false)
-	set_collision_mask_bit(0,false)
-	$Top_checker.set_collision_mask_bit(0,false)
+	stop_collisions()
 	body.PlayerDeath(position.x)
 	
 	pass # Replace with function body.
 
+func stop_collisions():
+	set_collision_layer_bit(4,false)
+	set_collision_mask_bit(0,false)
+	$Top_checker.set_collision_mask_bit(0,false)
+	$Side_checker.set_collision_mask_bit(0,false)
 
+func start_collisions():
+	set_collision_layer_bit(4,true)
+	set_collision_mask_bit(0,true)
+	$Top_checker.set_collision_mask_bit(0,true)
+	$Side_checker.set_collision_mask_bit(0,true)
 
 func _on_DeathTimer_timeout():
 	queue_free()
