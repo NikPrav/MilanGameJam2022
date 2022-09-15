@@ -13,5 +13,5 @@ func _physics_process(delta):
 		$Light2D.energy = 0
 	else:
 		$Light2D.energy = nrg
-	
-	
+
+
