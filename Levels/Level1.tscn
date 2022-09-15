@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tilesets/World_Blue.tres" type="TileSet" id=2]
+[ext_resource path="res://Tilesets/PassThrough_Brown.tres" type="TileSet" id=3]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Backgrounds/set2_background.png" type="Texture" id=4]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Backgrounds/set1_tiles.png" type="Texture" id=5]
+[ext_resource path="res://Tilesets/Collectible.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Levels/TileMap One-Way.gd" type="Script" id=7]
+[ext_resource path="res://Levels/tilemap_controller.gd" type="Script" id=8]
+[ext_resource path="res://Levels/Level1.gd" type="Script" id=9]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/switchRed_left.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 192, 32 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1648, 32 )
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="TileMap One-Way" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+collision_layer = 2
+collision_mask = 12
+format = 1
+tile_data = PoolIntArray( 65542, 0, 0, 65543, 2, 0, 65544, 2, 0, 65545, 2, 0, 65546, 2, 0, 65547, 1, 0 )
+script = ExtResource( 7 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap One-Way"]
+collision_layer = 2
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap One-Way/StaticBody2D"]
+position = Vector2( 576, 96 )
+shape = SubResource( 1 )
+one_way_collision = true
+one_way_collision_margin = 31.1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+collision_layer = 2
+collision_mask = 5
+format = 1
+tile_data = PoolIntArray( 23, 14, 0, 24, 4, 0, 25, 4, 0, 26, 4, 0, 27, 4, 0, 28, 4, 0, 29, 4, 0, 30, 15, 0, 131104, 3, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 5, 0, 196623, 14, 0, 196624, 4, 0, 196625, 4, 0, 196626, 4, 0, 196627, 4, 0, 196628, 15, 0, 262148, 6, 0, 262149, 4, 0, 262150, 4, 0, 262151, 4, 0, 262152, 4, 0, 262153, 4, 0, 262154, 7, 0, 327683, 6, 0, 327684, 17, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 18, 0, 327691, 7, 0, 393218, 13, 0, 393219, 17, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 18, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0 )
+
+[node name="SwitchZone" type="Area2D" parent="."]
+position = Vector2( 448, 224 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchZone"]
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="SwitchZone"]
+texture = ExtResource( 10 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 244, 86 )
+collision_mask = 13
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = -50
+limit_bottom = 450
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.3
+drag_margin_right = 0.3
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="PurpleSky" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.137255, 0.141176, 0.290196, 1 )
+motion_mirroring = Vector2( 1280, 960 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/PurpleSky"]
+modulate = Color( 0.96875, 0.147583, 0.147583, 1 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="NearbyBlocks" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.7 )
+motion_mirroring = Vector2( 1120, 840 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/NearbyBlocks"]
+modulate = Color( 0.317647, 0.321569, 0.356863, 1 )
+scale = Vector2( 1.75, 1.75 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FallZone" type="Area2D" parent="."]
+position = Vector2( 32, 608 )
+collision_layer = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FallZone"]
+position = Vector2( 1616, 0 )
+shape = SubResource( 2 )
+
+[node name="Coin" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1088, 160 )
+
+[node name="Coin2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1216, 160 )
+
+[node name="Coin3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1536, -32 )
+
+[connection signal="body_entered" from="SwitchZone" to="Player" method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="SwitchZone" to="Player" method="_on_SwitchZone_body_exited"]
+[connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
