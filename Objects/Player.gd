@@ -66,9 +66,7 @@ func _physics_process(delta):
 	# Linear Interpolation
 	velocity.x = lerp(velocity.x, 0,DRAG)
 	
-	# Checking if enough coins have been collected
-	if coins == 3:
-		get_tree().change_scene("res://Levels/Level1.tscn")
+
 
 
 
@@ -88,6 +86,27 @@ func _on_Area2D_body_entered(body):
 	
 	
 
+func bounce():
+	velocity.y = 0.75*JSPEED
+
+func PlayerDeath(var eposx):
+	set_modulate(Color(1,0.2,0.2,0.4))
+	velocity.y = 0.5*JSPEED
+	
+	if position.x < eposx:
+		velocity.x = -800
+	else:
+		velocity.x = 800
+	
+	Input.action_release("left")
+	Input.action_release("right")
+	
+	$DeathTimer.start()
+#	get_tree().change_scene("res://Levels/Level1.tscn")
 
 func _on_SwitchZone_body_exited(body):
 	can_change_layer = false
+
+
+func _on_DeathTimer_timeout():
+	get_tree().change_scene("res://Levels/Level1.tscn")

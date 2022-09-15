@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tilesets/World_Blue.tres" type="TileSet" id=2]
@@ -10,6 +10,11 @@
 [ext_resource path="res://Levels/tilemap_controller.gd" type="Script" id=8]
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=9]
 [ext_resource path="res://abstract-platformer-370-assets/PNG/Other/switchRed_left.png" type="Texture" id=10]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Items/discRed.png" type="Texture" id=11]
+[ext_resource path="res://kenney_fontpackage/Fonts/Kenney Blocks.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://kenney_fontpackage/Fonts/Kenney Rocket Square.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Levels/HUD.gd" type="Script" id=14]
+[ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 192, 32 )
@@ -20,13 +25,28 @@ extents = Vector2( 32, 32 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1648, 32 )
 
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.176471 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=5]
+outline_size = 2
+outline_color = Color( 0.364706, 0.262745, 0.243137, 1 )
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 13 )
+
 [node name="Level1" type="Node2D"]
 script = ExtResource( 9 )
 
 [node name="TileMap One-Way" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 collision_layer = 2
-collision_mask = 12
+collision_mask = 28
 format = 1
 tile_data = PoolIntArray( 65542, 0, 0, 65543, 2, 0, 65544, 2, 0, 65545, 2, 0, 65546, 2, 0, 65547, 1, 0 )
 script = ExtResource( 7 )
@@ -44,12 +64,13 @@ one_way_collision_margin = 31.1
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 collision_layer = 2
-collision_mask = 5
+collision_mask = 21
 format = 1
 tile_data = PoolIntArray( 23, 14, 0, 24, 4, 0, 25, 4, 0, 26, 4, 0, 27, 4, 0, 28, 4, 0, 29, 4, 0, 30, 15, 0, 131104, 3, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 5, 0, 196623, 14, 0, 196624, 4, 0, 196625, 4, 0, 196626, 4, 0, 196627, 4, 0, 196628, 15, 0, 262148, 6, 0, 262149, 4, 0, 262150, 4, 0, 262151, 4, 0, 262152, 4, 0, 262153, 4, 0, 262154, 7, 0, 327683, 6, 0, 327684, 17, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 18, 0, 327691, 7, 0, 393218, 13, 0, 393219, 17, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 18, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0 )
 
 [node name="SwitchZone" type="Area2D" parent="."]
 position = Vector2( 448, 224 )
+collision_layer = 32
 __meta__ = {
 "_edit_group_": true
 }
@@ -111,15 +132,69 @@ __meta__ = {
 position = Vector2( 1616, 0 )
 shape = SubResource( 2 )
 
-[node name="Coin" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1088, 160 )
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 14 )
 
-[node name="Coin2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1216, 160 )
+[node name="Panel" type="Panel" parent="HUD"]
+margin_left = 30.0
+margin_top = 20.0
+margin_right = 144.0
+margin_bottom = 69.0
+custom_styles/panel = SubResource( 4 )
 
-[node name="Coin3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, -32 )
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+margin_left = 36.0
+margin_top = 26.0
+margin_right = 70.0
+margin_bottom = 64.0
+texture = ExtResource( 11 )
+
+[node name="x" type="Label" parent="HUD"]
+margin_left = 75.0
+margin_top = 32.0
+margin_right = 115.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 0.866667, 0.305882, 0.329412, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "x"
+
+[node name="CoinCount" type="Label" parent="HUD"]
+margin_left = 95.0
+margin_top = 33.0
+margin_right = 135.0
+margin_bottom = 53.0
+custom_colors/font_color = Color( 0.866667, 0.305882, 0.329412, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "##"
+align = 1
+
+[node name="CoinPurse" type="Node2D" parent="."]
+
+[node name="Coin" parent="CoinPurse" instance=ExtResource( 6 )]
+position = Vector2( 992, 160 )
+
+[node name="Coin2" parent="CoinPurse" instance=ExtResource( 6 )]
+position = Vector2( 992, 352 )
+
+[node name="Coin3" parent="CoinPurse" instance=ExtResource( 6 )]
+position = Vector2( 736, 32 )
+
+[node name="Coin4" parent="CoinPurse" instance=ExtResource( 6 )]
+position = Vector2( 1312, 160 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 15 )]
+position = Vector2( 352, 224 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 15 )]
+position = Vector2( 1024, 160 )
+detects_cliffs = false
 
 [connection signal="body_entered" from="SwitchZone" to="Player" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="SwitchZone" to="Player" method="_on_SwitchZone_body_exited"]
 [connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
+[connection signal="coin_collected" from="CoinPurse/Coin" to="HUD" method="_on_coin_collected" flags=6]
+[connection signal="coin_collected" from="CoinPurse/Coin2" to="HUD" method="_on_coin_collected" flags=6]
+[connection signal="coin_collected" from="CoinPurse/Coin3" to="HUD" method="_on_coin_collected" flags=6]
+[connection signal="coin_collected" from="CoinPurse/Coin4" to="HUD" method="_on_coin_collected" flags=6]
