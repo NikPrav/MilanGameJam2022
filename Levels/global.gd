@@ -1,7 +1,7 @@
 extends Node2D
 
-var SpaceshipCount
-var LivesCount
+var coinCount = 0
+var LivesCount = 3
 var CurrentLayer
 
 func _ready():
