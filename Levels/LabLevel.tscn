@@ -428,6 +428,7 @@ color = Color( 0.984314, 0.541176, 0.541176, 1 )
 
 [node name="LightSource9" parent="Lights" instance=ExtResource( 18 )]
 position = Vector2( 1540, 1205 )
+layer = 1
 color = Color( 0.984314, 0.541176, 0.541176, 1 )
 
 [node name="LightSource2" parent="Lights" instance=ExtResource( 18 )]
@@ -476,7 +477,6 @@ __meta__ = {
 }
 
 [node name="Camera2D" parent="Player" instance=ExtResource( 16 )]
-current = false
 limit_bottom = 2200
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -578,3 +578,4 @@ shape = SubResource( 21 )
 [connection signal="body_exited" from="SwitchZone3" to="Player" method="_on_SwitchZone_body_exited"]
 [connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
 [connection signal="area_entered" from="LevelTrigger" to="." method="_on_LevelTrigger_area_entered"]
+[connection signal="body_entered" from="LevelTrigger" to="." method="_on_LevelTrigger_body_entered"]

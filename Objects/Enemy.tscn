@@ -70,6 +70,8 @@ wait_time = 2.0
 
 [node name="Position2D" type="Position2D" parent="."]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="Top_checker" to="." method="_on_Top_checker_body_entered"]
 [connection signal="body_entered" from="Side_checker" to="." method="_on_Side_checker_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
