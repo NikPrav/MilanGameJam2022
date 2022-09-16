@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://kenney_fontpackage/Fonts/SpaceGrotesk-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Items/keyRed.png" type="Texture" id=2]
+[ext_resource path="res://alien-ufo-pack/PNG/shipBlue_manned.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.294118 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 1 )
+
+[node name="HUD" type="Node2D"]
+
+[node name="CoinsPanel" type="Panel" parent="."]
+margin_left = 50.0
+margin_top = 40.0
+margin_right = 225.0
+margin_bottom = 115.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CoinX" type="Label" parent="CoinsPanel"]
+margin_left = 79.0
+margin_top = 28.0
+margin_right = 99.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 2 )
+text = "X"
+
+[node name="CoinIcon" type="TextureRect" parent="CoinsPanel"]
+margin_left = 111.0
+margin_top = 163.0
+margin_right = 151.0
+margin_bottom = 203.0
+
+[node name="ShipYellowManned" type="Sprite" parent="CoinsPanel/CoinIcon"]
+position = Vector2( -70, -127 )
+scale = Vector2( 0.35, 0.35 )
+texture = ExtResource( 3 )
+
+[node name="Coin" type="Label" parent="CoinsPanel"]
+margin_left = 105.0
+margin_top = 18.0
+margin_right = 158.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 3 )
+text = "##"
+align = 1
+valign = 1
+
+[node name="LivesPanel" type="Panel" parent="."]
+margin_left = 800.0
+margin_top = 40.0
+margin_right = 975.0
+margin_bottom = 115.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CoinX" type="Label" parent="LivesPanel"]
+margin_left = 79.0
+margin_top = 28.0
+margin_right = 99.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 2 )
+text = "X"
+
+[node name="CoinIcon" type="TextureRect" parent="LivesPanel"]
+margin_left = -223.0
+margin_top = 4.0
+margin_right = -183.0
+margin_bottom = 44.0
+
+[node name="Lives" type="Sprite" parent="LivesPanel/CoinIcon"]
+position = Vector2( 265, 33 )
+scale = Vector2( 1.3, 1.3 )
+texture = ExtResource( 2 )
+
+[node name="Coin" type="Label" parent="LivesPanel"]
+margin_left = 105.0
+margin_top = 18.0
+margin_right = 158.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 3 )
+text = "##"
+align = 1
+valign = 1
