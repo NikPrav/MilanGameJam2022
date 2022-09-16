@@ -29,7 +29,7 @@ extents = Vector2( 21, 3 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 20, 21 )
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 16
 collision_mask = 35
 script = ExtResource( 5 )
@@ -65,10 +65,12 @@ shape = SubResource( 4 )
 [node name="DeathTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Position2D" type="Position2D" parent="."]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 
-[node name="Timer" type="Timer" parent="Position2D"]
+[node name="Position2D" type="Position2D" parent="."]
 
 [connection signal="body_entered" from="Top_checker" to="." method="_on_Top_checker_body_entered"]
 [connection signal="body_entered" from="Side_checker" to="." method="_on_Side_checker_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

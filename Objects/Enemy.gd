@@ -16,13 +16,13 @@ export var layer = 0
 
 func _ready():
 	# Timer for shooting mechanism
-	_timer = Timer.now()
-	add_child(_timer)
-	
-	_timer.connect("timeout", self, "_on_Timer_timeout")
-	_timer.set_wait_time(2.0)
-	_timer.set_one_shot(false) # Make sure it loops
-	_timer.start()
+#	_timer = Timer.now()
+#	add_child(_timer)
+#
+#	_timer.connect("timeout", self, "_on_Timer_timeout")
+#	_timer.set_wait_time(2.0)
+#	_timer.set_one_shot(false) # Make sure it loops
+	$Timer.start()
 	
 	if direction < 0:
 		$Sprite.flip_h = true
@@ -116,6 +116,6 @@ func _on_Timer_timeout():
 
 func shoot():
 	var bullet = BULLET.instance()
-	get_tree().add_child(bullet)
+	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = $Position2D.global_position
 		

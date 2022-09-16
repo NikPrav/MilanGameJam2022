@@ -28,5 +28,5 @@ func _on_Bullet_body_entered(body):
 		body.add_lives(-1)
 		
 		destroy()
-	elif int(node.cur_layer) == layer:
+	elif int(node.cur_layer) == layer and !body.is_in_group("enemy"):
 		destroy()
