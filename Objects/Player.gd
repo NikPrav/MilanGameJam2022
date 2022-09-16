@@ -8,6 +8,8 @@ var velocity
 var coins
 var can_change_layer
 var direction = 1
+var lives = 3;
+
 
 const DRAG = 0.4
 const SPEED = 450
@@ -33,6 +35,7 @@ var last_jump_direction
 func _physics_process(delta):
 	
 	var slow_fall = false
+	
 	
 #	print(is_near_wall())
 	
@@ -117,7 +120,7 @@ func input_controller():
 			s = SPEED
 		States.WALL:
 			s = 0
-	print(state)
+#	print(state)
 	if Input.is_action_pressed("right"):
 		velocity.x = s
 		$Sprite.flip_h = false
@@ -139,26 +142,33 @@ func set_layer(a):
 func add_coin():
 	coins += 1
 
-
-	
+func add_lives(var l: int):
+	lives += l
+	if lives < 0:
+		PlayerDeath()
 	
 
 func bounce():
 	velocity.y = 0.75*JSPEED
 
-func PlayerDeath(var eposx):
+func push_back(var eposx):
 	set_modulate(Color(1,0.2,0.2,0.4))
 	velocity.y = 0.5*JSPEED
 	
 	if position.x < eposx:
 		velocity.x = -800
 	else:
-		velocity.x = 800
+		velocity.x = 800	
 	
 	Input.action_release("left")
 	Input.action_release("right")
+	$PushBackTimer.start()
+
+func PlayerDeath():
+	
 	
 	$DeathTimer.start()
+	print("Death Timer started")
 #	get_tree().change_scene("res://Levels/Level1.tscn")
 
 func is_near_wall():
@@ -184,5 +194,5 @@ func _on_SwitchZone_body_exited(body):
 	print("Body exited the zone")
 	can_change_layer = false
 
-
-
+func _on_PushBackTimer_timeout():
+	set_modulate(Color(1,1,1,1))

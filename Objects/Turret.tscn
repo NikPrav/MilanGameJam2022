@@ -21,7 +21,6 @@ enabled = true
 cast_to = Vector2( 250, 0 )
 
 [node name="ShootTimer" type="Timer" parent="RayCast2D"]
-wait_time = 0.5
 one_shot = true
 
 [connection signal="timeout" from="RayCast2D/ShootTimer" to="." method="_on_ShootTimer_timeout"]

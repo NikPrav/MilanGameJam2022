@@ -42,8 +42,9 @@ func motion_handler():
 #		velocity.x = direction * SPEED
 #	else:
 #		velocity = cur_velocity
-	if  !SPEED:
+	if  SPEED > 0:
 		start_collisions()
+	
 	velocity.y += GRAV		
 	velocity.x = direction * SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)	
@@ -70,18 +71,22 @@ func _on_Top_checker_body_entered(body):
 
 func _on_Side_checker_body_entered(body):
 	print("Player on the side")
-	stop_collisions()
-	body.PlayerDeath(position.x)
+#	stop_collisions()
+#	body.PlayerDeath(position.x)
+	body.push_back(position.x)
+	body.add_lives(-1)
 	
 	pass # Replace with function body.
 
 func stop_collisions():
+#	print("Enemy collisions stopped")
 	set_collision_layer_bit(4,false)
 	set_collision_mask_bit(0,false)
 	$Top_checker.set_collision_mask_bit(0,false)
 	$Side_checker.set_collision_mask_bit(0,false)
 
 func start_collisions():
+#	print("Enemy collisions stopped")
 	set_collision_layer_bit(4,true)
 	set_collision_mask_bit(0,true)
 	$Top_checker.set_collision_mask_bit(0,true)

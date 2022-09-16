@@ -43,6 +43,19 @@ font_data = ExtResource( 13 )
 [node name="Level1" type="Node2D"]
 script = ExtResource( 9 )
 
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+collision_layer = 2
+collision_mask = 21
+format = 1
+tile_data = PoolIntArray( 23, 14, 0, 24, 4, 0, 25, 4, 0, 26, 4, 0, 27, 4, 0, 28, 4, 0, 29, 4, 0, 30, 15, 0, 131104, 3, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 5, 0, 196623, 14, 0, 196624, 4, 0, 196625, 4, 0, 196626, 4, 0, 196627, 4, 0, 196628, 15, 0, 262148, 6, 0, 262149, 4, 0, 262150, 4, 0, 262151, 4, 0, 262152, 4, 0, 262153, 4, 0, 262154, 7, 0, 327683, 6, 0, 327684, 17, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 18, 0, 327691, 7, 0, 393218, 13, 0, 393219, 17, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 18, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 244, 86 )
+collision_mask = 13
+
+[node name="Camera2D" parent="Player" instance=ExtResource( 18 )]
+
 [node name="TileMap One-Way" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 collision_layer = 2
@@ -61,23 +74,10 @@ shape = SubResource( 1 )
 one_way_collision = true
 one_way_collision_margin = 31.1
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 2 )
-collision_layer = 2
-collision_mask = 21
-format = 1
-tile_data = PoolIntArray( 23, 14, 0, 24, 4, 0, 25, 4, 0, 26, 4, 0, 27, 4, 0, 28, 4, 0, 29, 4, 0, 30, 15, 0, 131104, 3, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 5, 0, 196623, 14, 0, 196624, 4, 0, 196625, 4, 0, 196626, 4, 0, 196627, 4, 0, 196628, 15, 0, 262148, 6, 0, 262149, 4, 0, 262150, 4, 0, 262151, 4, 0, 262152, 4, 0, 262153, 4, 0, 262154, 7, 0, 327683, 6, 0, 327684, 17, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 18, 0, 327691, 7, 0, 393218, 13, 0, 393219, 17, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 18, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0 )
-
 [node name="SwitchZone" parent="." instance=ExtResource( 10 )]
 
 [node name="SwitchZone2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 605, 226 )
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 244, 86 )
-collision_mask = 13
-
-[node name="Camera2D" parent="Player" instance=ExtResource( 18 )]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -164,6 +164,9 @@ position = Vector2( 1312, 160 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="Turret" parent="Enemies" instance=ExtResource( 17 )]
+position = Vector2( 802, 256 )
+
 [node name="Enemy" parent="Enemies" instance=ExtResource( 15 )]
 position = Vector2( 551, 40 )
 
@@ -201,9 +204,6 @@ layer = 1
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color( 0, 0, 0, 1 )
-
-[node name="Turret" parent="." instance=ExtResource( 17 )]
-position = Vector2( 802, 256 )
 
 [connection signal="body_entered" from="SwitchZone" to="Player" method="_on_SwitchZone_body_entered"]
 [connection signal="body_exited" from="SwitchZone" to="Player" method="_on_SwitchZone_body_exited"]

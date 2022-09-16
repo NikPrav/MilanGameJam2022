@@ -30,4 +30,9 @@ cast_to = Vector2( 0, 30 )
 collision_mask = 2
 collide_with_areas = true
 
+[node name="PushBackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="timeout" from="PushBackTimer" to="." method="_on_PushBackTimer_timeout"]

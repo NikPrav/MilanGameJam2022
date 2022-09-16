@@ -1,5 +1,6 @@
 extends Node2D
 
+export var layer  = 0
 #var target: Node2D = null
 
 export(PackedScene) var BULLET: PackedScene =  null
@@ -15,7 +16,11 @@ func _ready():
 	target = find_target()
 
 func _physics_process(delta):
-	if target != null:
+	
+	var node = get_parent().get_parent()
+	
+	
+	if target != null && int(node.cur_layer) == layer:
 		var angle_to_target: float = global_position.direction_to(target.global_position).angle()
 		raycast.global_rotation = angle_to_target
 #		print(angle_to_target)
