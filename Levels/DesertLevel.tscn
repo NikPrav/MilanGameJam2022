@@ -23,7 +23,7 @@ extents = Vector2( 546.5, 41 )
 extents = Vector2( 603, 35.5 )
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 60, 239.5 )
+extents = Vector2( 563, 98 )
 
 [node name="DesertLevel" type="Node2D"]
 script = ExtResource( 16 )
@@ -74,7 +74,6 @@ __meta__ = {
 }
 
 [node name="Camera2D" parent="Player" instance=ExtResource( 14 )]
-current = false
 limit_left = -500
 limit_top = -200
 limit_bottom = 1500
