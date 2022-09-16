@@ -108,7 +108,8 @@ func PlayerDeath(var eposx):
 
 
 func _on_DeathTimer_timeout():
-	get_tree().change_scene("res://Levels/Level1.tscn")
+#	get_tree().change_scene("res://Levels/Level1.tscn")
+	get_tree().change_scene("res://Levels/"+get_tree().get_current_scene().get_name()+".tscn")
 
 
 func _on_SwitchZone_body_entered(body):

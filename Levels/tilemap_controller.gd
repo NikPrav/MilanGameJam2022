@@ -7,11 +7,16 @@ export var layer = 0
 
 
 func _process(delta):
+	
+	set_colliders()
+	pass
+
+func set_colliders():
 	var node = get_parent().get_parent()
+	
+#	print("Layer ="+str(layer))
 #	print(node.cur_layer)
-	if(node.cur_layer != layer):
+	if(int(node.cur_layer) != layer):
 		set_collision_mask_bit(0,false);
 	else:
 		set_collision_mask_bit(0,true);
-#	set_collision_mask_bit(1,false);
-	pass
