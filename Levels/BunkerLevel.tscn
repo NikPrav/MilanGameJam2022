@@ -346,7 +346,6 @@ shape = SubResource( 14 )
 position = Vector2( -923, 13 )
 
 [node name="Camera2D" parent="Player" instance=ExtResource( 18 )]
-zoom = Vector2( 1.5, 1.5 )
 limit_left = -1400
 limit_top = -700
 limit_bottom = 4200
