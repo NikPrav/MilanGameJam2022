@@ -48,8 +48,10 @@ func _physics_process(delta):
 				state = States.WALL
 			if(velocity.y < 0):
 				$Sprite.play("jump")
+				$JumpAudio.play()
 			else:
 				$Sprite.play("fall")
+				$DropAudio.play()
 			input_controller()
 			
 		States.FLOOR:
@@ -59,6 +61,7 @@ func _physics_process(delta):
 				continue
 			if velocity.x > small_x || velocity.x < -1*small_x:
 				$Sprite.play("walk")
+				$WalkAudio.play()
 			else:
 				$Sprite.play("idle")
 			if Input.is_action_just_pressed("jump"):

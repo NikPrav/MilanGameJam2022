@@ -36,6 +36,7 @@ func shoot():
 	if BULLET:
 		var bullet = BULLET.instance()
 		get_tree().current_scene.add_child(bullet)
+		$ShootAudio.play()
 		bullet.global_position = global_position
 		bullet.global_rotation = raycast.global_rotation
 	
