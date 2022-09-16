@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/Turret.gd" type="Script" id=1]
-[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/buttonRed_pressed.png" type="Texture" id=2]
-[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/plantBottom_1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Common Assets/Desert Character - Turret - Body.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Common Assets/Desert Character - Turret - Turret.png" type="Texture" id=3]
 [ext_resource path="res://Objects/Bullet.tscn" type="PackedScene" id=4]
 
 [node name="Turret" type="Node2D"]
@@ -10,13 +10,15 @@ script = ExtResource( 1 )
 BULLET = ExtResource( 4 )
 
 [node name="BaseSprite" type="Sprite" parent="."]
+position = Vector2( 0, -16 )
 texture = ExtResource( 2 )
 
 [node name="GunSprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
-offset = Vector2( 0, -30 )
+flip_h = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 15 )
 enabled = true
 cast_to = Vector2( 250, 0 )
 

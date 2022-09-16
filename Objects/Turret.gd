@@ -25,7 +25,7 @@ func _physics_process(delta):
 		raycast.global_rotation = angle_to_target
 #		print(angle_to_target)
 		if raycast.is_colliding() and raycast.get_collider().is_in_group("player"):
-			gunSprite.rotation = angle_to_target + 3.14/2
+			gunSprite.rotation = angle_to_target 
 			if timer.is_stopped():
 				shoot()
 
