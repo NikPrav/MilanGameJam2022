@@ -143,7 +143,8 @@ func set_layer(a):
 	cur_layer = a
 
 func add_coin():
-	coins += 1
+	coinCount += 1
+
 
 func add_lives(var l: int):
 	lives += l
