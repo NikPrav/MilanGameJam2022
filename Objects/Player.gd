@@ -48,22 +48,28 @@ func _physics_process(delta):
 				state = States.WALL
 			if(velocity.y < 0):
 				$Sprite.play("jump")
-				$JumpAudio.play()
+				$WalkAudio.stop()
+				if !$JumpAudio.playing:
+					$JumpAudio.play()
 			else:
+				$JumpAudio.stop()
 				$Sprite.play("fall")
 				$DropAudio.play()
 			input_controller()
 			
 		States.FLOOR:
 			last_jump_direction = 0
+			$DropAudio.stop()
 			if !is_on_floor():
 				state = States.AIR
 				continue
 			if velocity.x > small_x || velocity.x < -1*small_x:
 				$Sprite.play("walk")
-				$WalkAudio.play()
+				if !$WalkAudio.playing:
+					$WalkAudio.play()
 			else:
 				$Sprite.play("idle")
+				$WalkAudio.stop()
 			if Input.is_action_just_pressed("jump"):
 				velocity.y = JSPEED
 			input_controller()
@@ -144,6 +150,7 @@ func set_layer(a):
 
 func add_coin():
 	coins += 1
+
 
 func add_lives(var l: int):
 	lives += l
