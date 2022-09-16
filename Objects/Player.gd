@@ -52,53 +52,29 @@ func _physics_process(delta):
 				$Sprite.play("walk")
 			else:
 				$Sprite.play("idle")
+			if Input.is_action_just_pressed("jump"):
+				velocity.y = JSPEED
 			input_controller()
 			
-			
-	
-#	Movement Controller
-#	if Input.is_action_pressed("right"):
-#		velocity.x = SPEED
-#		$Sprite.play("walk")
-#		$Sprite.flip_h = false
-#	elif Input.is_action_pressed("left"):
-#		velocity.x = -1*SPEED
-#		$Sprite.play("walk")
-#		$Sprite.flip_h = true
-#	else:
-#		$Sprite.play("idle")
-	
 #	Change Layer	
 	if Input.is_action_just_pressed("change_layer") and can_change_layer:
 		set_layer(!cur_layer)
 	
-#	Checking if the player is on the floor
-#	if not is_on_floor():
-#		if(velocity.y < 0):
-#			$Sprite.play("jump")
-#		else:
-#			$Sprite.play("fall")
-	
 	set_direction()
-	# Adding Gravity
-	
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JSPEED
 	
-	
-
-	# print("velocity.y %f" % velocity.y)
 	# Updating Velocity
 	move_and_fall()
 	
 	
-	# Linear Interpolation
-	
-	
 
 func move_and_fall():
+	#Gravity
 	velocity.y += GRAV
+	
+	# Linear interpolation for Drag
 	velocity.x = lerp(velocity.x, 0,DRAG)
 	velocity = move_and_slide(velocity, Vector2.UP)
 
