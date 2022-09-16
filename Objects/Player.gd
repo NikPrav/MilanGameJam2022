@@ -15,7 +15,7 @@ const GRAV = 30
 const JSPEED = -1000
 
 var cur_layer = 0
-
+var small_x = 0.1
 
 
 func _ready():
@@ -27,7 +27,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
+var last_jump_direction
 # Game Loop
 # Not tied to frame rate
 func _physics_process(delta):
@@ -50,10 +50,11 @@ func _physics_process(delta):
 			input_controller()
 			
 		States.FLOOR:
+			last_jump_direction = 0
 			if !is_on_floor():
 				state = States.AIR
 				continue
-			if velocity.x > 0:
+			if velocity.x > small_x:
 				$Sprite.play("walk")
 			else:
 				$Sprite.play("idle")
@@ -70,12 +71,13 @@ func _physics_process(delta):
 #			input_controller()
 			slow_fall = true
 			
-			if Input.is_action_just_pressed("jump") and (Input.is_action_pressed("left") and direction == 1) or (Input.is_action_pressed("right") and direction == -1):
-				velocity.x = 450 * -direction
-				velocity.y = JSPEED * 0.7
-#			if Input.is_action_just_pressed("jump") :
-#				velocity.x = 900 * -direction
-#				velocity.y = JSPEED * 0.7
+			# Wall Jump Check
+			if direction != last_jump_direction :
+				if Input.is_action_just_pressed("jump") and (Input.is_action_pressed("left") and direction == 1) or (Input.is_action_pressed("right") and direction == -1):
+					last_jump_direction = direction
+					velocity.x = 450 * -direction
+					velocity.y = JSPEED * 0.7
+					
 #	Change Layer	
 	if Input.is_action_just_pressed("change_layer") and can_change_layer:
 		set_layer(!cur_layer)
@@ -109,6 +111,7 @@ func input_controller():
 	
 	match state:
 		States.AIR:
+#			s = lerp(velocity.x,SPEED,0.1) if velocity.x < SPEED else lerp(velocity.x,SPEED,0.03)
 			s = SPEED
 		States.FLOOR:
 			s = SPEED
@@ -180,3 +183,6 @@ func _on_SwitchZone_body_entered(body):
 func _on_SwitchZone_body_exited(body):
 	print("Body exited the zone")
 	can_change_layer = false
+
+
+

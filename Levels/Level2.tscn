@@ -216,7 +216,7 @@ position = Vector2( 4398, 1292 )
 position = Vector2( 4108, 1294 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 3720, 899 )
+position = Vector2( 339, 476 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -232,4 +232,8 @@ smoothing_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
+[connection signal="body_entered" from="SwitchZone" to="Player" method="_on_SwitchZone_body_entered"]
+[connection signal="body_exited" from="SwitchZone" to="Player" method="_on_SwitchZone_body_exited"]
+[connection signal="body_entered" from="SwitchZone2" to="Player" method="_on_SwitchZone_body_entered"]
+[connection signal="body_exited" from="SwitchZone2" to="Player" method="_on_SwitchZone_body_exited"]
 [connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]

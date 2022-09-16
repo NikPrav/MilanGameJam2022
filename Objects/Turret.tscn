@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Turret.gd" type="Script" id=1]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/buttonRed_pressed.png" type="Texture" id=2]
+[ext_resource path="res://abstract-platformer-370-assets/PNG/Other/plantBottom_1.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Bullet.tscn" type="PackedScene" id=4]
+
+[node name="Turret" type="Node2D"]
+script = ExtResource( 1 )
+BULLET = ExtResource( 4 )
+
+[node name="BaseSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="GunSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+offset = Vector2( 0, -30 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 250, 0 )
+
+[node name="ShootTimer" type="Timer" parent="RayCast2D"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="RayCast2D/ShootTimer" to="." method="_on_ShootTimer_timeout"]
