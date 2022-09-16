@@ -28,7 +28,6 @@ func _physics_process(delta):
 		motion_handler()
 	else:
 		motion_stop()
-		stop_collisions()
 	
 	if is_on_wall() or (not $FloorCheck.is_colliding() and detects_cliffs) and is_on_floor():
 		direction *= -1
@@ -43,7 +42,8 @@ func motion_handler():
 #		velocity.x = direction * SPEED
 #	else:
 #		velocity = cur_velocity
-	start_collisions()
+	if  !SPEED:
+		start_collisions()
 	velocity.y += GRAV		
 	velocity.x = direction * SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)	
@@ -54,12 +54,13 @@ func motion_stop():
 
 
 func _on_Top_checker_body_entered(body):
+	stop_collisions()
 	print("Player on top")
 	$Sprite.play("Kill")
 	SPEED = 0
 	
 	layer = 5
-	stop_collisions()
+	
 	$DeathTimer.start()
 	body.bounce()
 	pass # Replace with function body.
