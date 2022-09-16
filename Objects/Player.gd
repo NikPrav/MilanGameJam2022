@@ -196,3 +196,11 @@ func _on_SwitchZone_body_exited(body):
 
 func _on_PushBackTimer_timeout():
 	set_modulate(Color(1,1,1,1))
+
+
+func _on_SwitchZone_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_SwitchZone_area_exited(area):
+	pass # Replace with function body.
