@@ -185,10 +185,27 @@ detects_cliffs = false
 position = Vector2( 818, 350 )
 
 [node name="LightSource2" parent="Lights" instance=ExtResource( 16 )]
-position = Vector2( -250, -362 )
+position = Vector2( -244, -359 )
+
+[node name="LightSource8" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( -593, -116 )
+
+[node name="LightSource4" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( 332, -235 )
+
+[node name="LightSource7" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( 332, -235 )
 
 [node name="LightSource3" parent="Lights" instance=ExtResource( 16 )]
-position = Vector2( -599, -55 )
+position = Vector2( -283, -166 )
+layer = 1
+
+[node name="LightSource5" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( 65, -108 )
+layer = 1
+
+[node name="LightSource6" parent="Lights" instance=ExtResource( 16 )]
+position = Vector2( 882, -442 )
 layer = 1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

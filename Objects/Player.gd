@@ -7,7 +7,7 @@ var can_change_layer
 const DRAG = 0.4
 const SPEED = 250
 const GRAV = 30
-const JSPEED = -830
+const JSPEED = -1000
 
 var cur_layer = 0
 
@@ -71,7 +71,9 @@ func _physics_process(delta):
 
 
 func _on_FallZone_body_entered(body):
-	get_tree().change_scene("res://Levels/Level1.tscn")
+	print("Inside the zone")
+	print(get_tree().get_current_scene().get_name())
+	get_tree().change_scene("res://Levels/"+get_tree().get_current_scene().get_name()+".tscn")
 	
 
 func set_layer(a):
