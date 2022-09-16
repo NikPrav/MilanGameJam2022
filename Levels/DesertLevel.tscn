@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Level 1 Assets/Assets/Background/Dessert Background - Front.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Level 1 Assets/Assets/Background/Dessert Background - Middle.png" type="Texture" id=3]
 [ext_resource path="res://Tilesets/Desert_yellow.tres" type="TileSet" id=4]
-[ext_resource path="res://Levels/LevelTrigger.gd" type="Script" id=5]
+[ext_resource path="res://Levels/LevelTriggerDesert.gd" type="Script" id=5]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/Camera2D.tscn" type="PackedScene" id=14]
@@ -129,4 +129,5 @@ shape = SubResource( 14 )
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 6 )]
 
 [connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
+[connection signal="area_entered" from="LevelTrigger" to="." method="_on_LevelTrigger_area_entered"]
 [connection signal="body_entered" from="LevelTrigger" to="LevelTrigger" method="_on_LevelTrigger_body_entered"]

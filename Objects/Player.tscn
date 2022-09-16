@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Anims/Player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/sfx/footstep_concrete_003.ogg" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.0
@@ -33,6 +34,9 @@ collide_with_areas = true
 [node name="PushBackTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="PushBackTimer" to="." method="_on_PushBackTimer_timeout"]
