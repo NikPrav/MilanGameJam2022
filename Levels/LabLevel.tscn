@@ -458,7 +458,7 @@ position = Vector2( 1748, 960 )
 position = Vector2( 3637, 1381 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 5152, 571 )
+position = Vector2( 192, -69 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -487,7 +487,6 @@ position = Vector2( 6335.5, 1366.5 )
 shape = SubResource( 16 )
 
 [node name="Illumination" type="Node2D" parent="."]
-visible = false
 
 [node name="Light2D" parent="Illumination" instance=ExtResource( 22 )]
 position = Vector2( 267, 679 )
