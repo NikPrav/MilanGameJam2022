@@ -57,7 +57,7 @@ func _physics_process(delta):
 			if !is_on_floor():
 				state = States.AIR
 				continue
-			if velocity.x > small_x:
+			if velocity.x > small_x || velocity.x < -1*small_x:
 				$Sprite.play("walk")
 			else:
 				$Sprite.play("idle")
@@ -78,8 +78,8 @@ func _physics_process(delta):
 			if direction != last_jump_direction :
 				if Input.is_action_just_pressed("jump") and (Input.is_action_pressed("left") and direction == 1) or (Input.is_action_pressed("right") and direction == -1):
 					last_jump_direction = direction
-					velocity.x = 450 * -direction
-					velocity.y = JSPEED * 0.7
+					velocity.x = 700 * -direction
+					velocity.y = JSPEED * 0.9
 					
 #	Change Layer	
 	if Input.is_action_just_pressed("change_layer") and can_change_layer:

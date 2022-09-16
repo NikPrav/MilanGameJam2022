@@ -8,7 +8,7 @@ export var SPEED = 200
 
 func _physics_process(delta):
 	
-	node = get_parent()
+	node = get_tree().get_current_scene()
 	
 	if int(node.cur_layer) == layer:
 		var movement = RIGHT.rotated(rotation) * SPEED * delta
