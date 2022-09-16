@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
+export(PackedScene) var BULLET: PackedScene =  null
+
 var SPEED = 50
 var GRAV = 20
 
+var _timer = null
 var cur_velocity = Vector2(0,0)
 var frozen = false
 
@@ -12,6 +15,15 @@ export var detects_cliffs = true
 export var layer = 0
 
 func _ready():
+	# Timer for shooting mechanism
+	_timer = Timer.now()
+	add_child(_timer)
+	
+	_timer.connect("timeout", self, "_on_Timer_timeout")
+	_timer.set_wait_time(2.0)
+	_timer.set_one_shot(false) # Make sure it loops
+	_timer.start()
+	
 	if direction < 0:
 		$Sprite.flip_h = true
 	$FloorCheck.position.x =  $CollisionShape2D.shape.get_radius() * direction
@@ -94,3 +106,16 @@ func start_collisions():
 
 func _on_DeathTimer_timeout():
 	queue_free()
+	
+
+# Shooting mechanism
+
+# Timely shooting of 
+func _on_Timer_timeout():
+	shoot()
+
+func shoot():
+	var bullet = BULLET.instance()
+	get_tree().add_child(bullet)
+	bullet.global_position = $Position2D.global_position
+		
