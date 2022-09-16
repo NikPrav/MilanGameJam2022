@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://kenney_fontpackage/Fonts/Kenney Mini Square.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://kenney_fontpackage/Fonts/Kenney Mini.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Misc/UI Left.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Misc/UI Right.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 45
@@ -16,7 +18,7 @@ font_data = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-color = Color( 0.109804, 0.113725, 0.14902, 1 )
+color = Color( 0.109804, 0.129412, 0.141176, 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
 margin_left = 365.0
@@ -40,3 +42,13 @@ margin_bottom = 258.0
 custom_fonts/font = SubResource( 2 )
 text = "Play"
 flat = true
+
+[node name="UiLeft" type="Sprite" parent="ColorRect"]
+position = Vector2( 225, 400 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 3 )
+
+[node name="UiRight" type="Sprite" parent="ColorRect"]
+position = Vector2( 800, 400 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 4 )

@@ -64,7 +64,7 @@ margin_right = 975.0
 margin_bottom = 115.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="CoinX" type="Label" parent="LivesPanel"]
+[node name="LivesX" type="Label" parent="LivesPanel"]
 margin_left = 79.0
 margin_top = 28.0
 margin_right = 99.0
@@ -72,18 +72,18 @@ margin_bottom = 57.0
 custom_fonts/font = SubResource( 2 )
 text = "X"
 
-[node name="CoinIcon" type="TextureRect" parent="LivesPanel"]
+[node name="LivesIcon" type="TextureRect" parent="LivesPanel"]
 margin_left = -223.0
 margin_top = 4.0
 margin_right = -183.0
 margin_bottom = 44.0
 
-[node name="Lives" type="Sprite" parent="LivesPanel/CoinIcon"]
+[node name="Lives" type="Sprite" parent="LivesPanel/LivesIcon"]
 position = Vector2( 265, 33 )
 scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 2 )
 
-[node name="Coin" type="Label" parent="LivesPanel"]
+[node name="LivesCount" type="Label" parent="LivesPanel"]
 margin_left = 105.0
 margin_top = 18.0
 margin_right = 158.0
