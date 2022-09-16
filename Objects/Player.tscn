@@ -35,8 +35,12 @@ collide_with_areas = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Walk" type="AudioStreamPlayer" parent="."]
+[node name="WalkAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+
+[node name="DropAudio" type="AudioStreamPlayer" parent="."]
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="PushBackTimer" to="." method="_on_PushBackTimer_timeout"]
