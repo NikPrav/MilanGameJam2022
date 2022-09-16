@@ -32,18 +32,23 @@ func _ready():
 # Not tied to frame rate
 func _physics_process(delta):
 	
-	print(is_near_wall())
+	var slow_fall = false
+	
+#	print(is_near_wall())
 	
 	match state:
 		States.AIR:
 			if is_on_floor():
 				state = States.FLOOR
 				continue
+			elif is_near_wall():
+				state = States.WALL
 			if(velocity.y < 0):
 				$Sprite.play("jump")
 			else:
 				$Sprite.play("fall")
 			input_controller()
+			
 		States.FLOOR:
 			if !is_on_floor():
 				state = States.AIR
@@ -55,7 +60,22 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("jump"):
 				velocity.y = JSPEED
 			input_controller()
+		States.WALL:
+			if is_on_floor():
+				state = States.FLOOR
+				continue
+			elif !is_near_wall():
+				state = States.AIR
+				continue
+#			input_controller()
+			slow_fall = true
 			
+			if Input.is_action_just_pressed("jump") and (Input.is_action_pressed("left") and direction == 1) or (Input.is_action_pressed("right") and direction == -1):
+				velocity.x = 450 * -direction
+				velocity.y = JSPEED * 0.7
+#			if Input.is_action_just_pressed("jump") :
+#				velocity.x = 900 * -direction
+#				velocity.y = JSPEED * 0.7
 #	Change Layer	
 	if Input.is_action_just_pressed("change_layer") and can_change_layer:
 		set_layer(!cur_layer)
@@ -66,24 +86,40 @@ func _physics_process(delta):
 		velocity.y = JSPEED
 	
 	# Updating Velocity
-	move_and_fall()
+	move_and_fall(slow_fall)
 	
 	
 
-func move_and_fall():
+func move_and_fall(slow_fall: bool):
 	#Gravity
 	velocity.y += GRAV
+	
+	if(slow_fall):
+		velocity.y = clamp(velocity.y,JSPEED,200)
+	
+	
 	
 	# Linear interpolation for Drag
 	velocity.x = lerp(velocity.x, 0,DRAG)
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 func input_controller():
+	
+	var s
+	
+	match state:
+		States.AIR:
+			s = SPEED
+		States.FLOOR:
+			s = SPEED
+		States.WALL:
+			s = 0
+	print(state)
 	if Input.is_action_pressed("right"):
-		velocity.x = SPEED
+		velocity.x = s
 		$Sprite.flip_h = false
 	elif Input.is_action_pressed("left"):
-		velocity.x = -1*SPEED
+		velocity.x = s*-1
 		$Sprite.flip_h = true
 		
 
