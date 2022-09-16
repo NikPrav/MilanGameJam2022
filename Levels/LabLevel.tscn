@@ -477,7 +477,6 @@ __meta__ = {
 }
 
 [node name="Camera2D" parent="Player" instance=ExtResource( 16 )]
-current = false
 limit_bottom = 2200
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
