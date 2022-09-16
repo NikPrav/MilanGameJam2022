@@ -410,7 +410,6 @@ position = Vector2( -1242, 2959 )
 [node name="Lights" type="Node2D" parent="."]
 
 [node name="LightSource" parent="Lights" instance=ExtResource( 10 )]
-visible = false
 position = Vector2( 318, 487 )
 
 [node name="LightSource4" parent="Lights" instance=ExtResource( 10 )]
@@ -442,7 +441,6 @@ position = Vector2( 2562, 1904 )
 layer = 1
 
 [node name="LightSource2" parent="Lights" instance=ExtResource( 10 )]
-visible = false
 position = Vector2( 638, 495 )
 layer = 1
 
